@@ -1,1 +1,1 @@
-# authnz
+# @appstack-io/authnz
