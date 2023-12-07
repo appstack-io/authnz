@@ -28,11 +28,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.17'
-          registry-url: 'https://npm.pkg.github.com/'
           scope: '@appstack-io'
 
       - name: Configure NPM
-        run: echo "APPSTACKIO_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+        run: echo "APPSTACKIO_NPM_TOKEN=${{ secrets.NPM_TOKEN }}" >> $GITHUB_ENV
 
       - name: Install Dependencies
         run: npm ci
@@ -64,5 +63,8 @@ jobs:
 
       - name: Publish
         if: github.ref == 'refs/heads/main' && steps.release.outputs.version
-        run: npm publish
+        run: |
+          echo $APPSTACKIO_NPM_TOKEN
+          cat .npmrc
+          npm publish
 
