@@ -27,7 +27,6 @@ export * from './rpcAuthEntityAssertReadable.interceptor';
 export * from './rpcAuthEntityCreateOwnership.interceptor';
 export * from './rpcAuthExternal.interceptor';
 export * from './rpcAuthRequired.interceptor';
-export * from './rpcPermissionDeniedException';
 export * from './rpcAuthenticatedUserId.decorator';
 export * from './rpcAuthAlsoWriteableAs.interceptor';
 export * from './rpcAuthReadableAs.interceptor';

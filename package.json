@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@appstack-io/client": "^0.1.0",
+    "@appstack-io/exceptions": "^0.1.1",
     "@grpc/grpc-js": "^1.8.18",
     "@nestjs/common": "^10.0.0",
     "jsonwebtoken": "^9.0.2",

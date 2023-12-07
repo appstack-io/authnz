@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { RpcAuthUtils } from './rpcAuthUtils';
-import { RpcPermissionDeniedException } from './rpcPermissionDeniedException';
+import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
 
 @Injectable()
 export class RpcAuthAssertInternalInterceptor implements NestInterceptor {

@@ -14,7 +14,7 @@ import * as grpc from '@grpc/grpc-js';
 import { Metadata } from 'nice-grpc';
 import { map } from 'rxjs';
 import { RpcAuthUtils } from './rpcAuthUtils';
-import { RpcPermissionDeniedException } from './rpcPermissionDeniedException';
+import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
 
 @Injectable()
 export class RpcAuthEntityCreateOwnershipInterceptor

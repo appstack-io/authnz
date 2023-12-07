@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import * as grpc from '@grpc/grpc-js';
-import { RpcPermissionDeniedException } from './rpcPermissionDeniedException';
+import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
 import * as jwtUtil from 'jsonwebtoken';
 
 export type Permitted = {

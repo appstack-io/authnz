@@ -14,7 +14,7 @@ import * as grpc from '@grpc/grpc-js';
 import { Metadata } from 'nice-grpc';
 import { RpcAuthUtils } from './rpcAuthUtils';
 import { catchError, from, map, mergeMap, throwError } from 'rxjs';
-import { RpcPermissionDeniedException } from './rpcPermissionDeniedException';
+import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
 
 @Injectable()
 export class RpcAuthEntityAssertReadableInterceptor implements NestInterceptor {
