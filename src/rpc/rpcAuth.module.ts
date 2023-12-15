@@ -10,6 +10,15 @@ import { PermissionModule } from '@appstack-io/permissions';
 
 @Module({
   imports: [PermissionModule],
+  providers: [
+    RpcAuthAssertInternalInterceptor,
+    RpcAuthInternalInterceptor,
+    RpcAuthEntityAssertWriteableInterceptor,
+    RpcAuthEntityAssertReadableInterceptor,
+    RpcAuthEntityCreateOwnershipInterceptor,
+    RpcAuthExternalInterceptor,
+    RpcAuthRequiredInterceptor,
+  ],
   exports: [
     RpcAuthAssertInternalInterceptor,
     RpcAuthInternalInterceptor,
