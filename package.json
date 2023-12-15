@@ -23,8 +23,8 @@
     "test:e2e": "E2E=1 SERVICE_HOST=service jest --runInBand"
   },
   "dependencies": {
-    "@appstack-io/client": "^0.1.0",
     "@appstack-io/exceptions": "^0.1.1",
+    "@appstack-io/permissions": "^0.2.2",
     "@grpc/grpc-js": "^1.8.18",
     "@nestjs/common": "^10.0.0",
     "jsonwebtoken": "^9.0.2",

@@ -4,30 +4,20 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import {
-  ClientService,
-  PermissionServiceClient,
-  PermissionServiceDefinition,
-} from '@appstack-io/client';
 import { RpcException } from '@nestjs/microservices';
 import * as grpc from '@grpc/grpc-js';
 import { Metadata } from 'nice-grpc';
 import { RpcAuthUtils } from './rpcAuthUtils';
 import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
+import { PermissionLogic } from '@appstack-io/permissions/dist/permission.logic';
 
 @Injectable()
 export class RpcAuthEntityAssertWriteableInterceptor
   implements NestInterceptor
 {
   private authUtils = new RpcAuthUtils();
-  private permissionServiceClient: PermissionServiceClient;
 
-  constructor(private clientService: ClientService) {
-    this.permissionServiceClient =
-      this.clientService.getServiceInternalClient<PermissionServiceClient>(
-        PermissionServiceDefinition,
-      );
-  }
+  constructor(private permissions: PermissionLogic) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<any> {
     const { jwt, decoded, external, permitted, entity, entityId } =
@@ -62,28 +52,22 @@ export class RpcAuthEntityAssertWriteableInterceptor
       const validations = [];
       if (entity && entityId) {
         validations.push(
-          this.permissionServiceClient.validateOne(
-            {
-              permitted,
-              entity: entity,
-              entityId: entityId,
-              action: 'write',
-            },
-            { metadata },
-          ),
+          this.permissions.validateOne({
+            permitted,
+            entity: entity,
+            entityId: entityId,
+            action: 'write',
+          }),
         );
       }
       if (asEntity && asEntityId) {
         validations.push(
-          this.permissionServiceClient.validateOne(
-            {
-              permitted,
-              entity: asEntity,
-              entityId: asEntityId,
-              action: 'write',
-            },
-            { metadata },
-          ),
+          this.permissions.validateOne({
+            permitted,
+            entity: asEntity,
+            entityId: asEntityId,
+            action: 'write',
+          }),
         );
       }
       await firstResolve(validations);

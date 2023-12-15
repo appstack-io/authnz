@@ -6,8 +6,10 @@ import { RpcAuthEntityAssertReadableInterceptor } from './rpcAuthEntityAssertRea
 import { RpcAuthEntityCreateOwnershipInterceptor } from './rpcAuthEntityCreateOwnership.interceptor';
 import { RpcAuthExternalInterceptor } from './rpcAuthExternal.interceptor';
 import { RpcAuthRequiredInterceptor } from './rpcAuthRequired.interceptor';
+import { PermissionModule } from '@appstack-io/permissions';
 
 @Module({
+  imports: [PermissionModule],
   exports: [
     RpcAuthAssertInternalInterceptor,
     RpcAuthInternalInterceptor,

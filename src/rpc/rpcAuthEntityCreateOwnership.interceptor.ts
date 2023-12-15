@@ -4,31 +4,21 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import {
-  ClientService,
-  PermissionServiceClient,
-  PermissionServiceDefinition,
-} from '@appstack-io/client';
 import { RpcException } from '@nestjs/microservices';
 import * as grpc from '@grpc/grpc-js';
 import { Metadata } from 'nice-grpc';
 import { map } from 'rxjs';
 import { RpcAuthUtils } from './rpcAuthUtils';
 import { RpcPermissionDeniedException } from '@appstack-io/exceptions';
+import { PermissionLogic } from '@appstack-io/permissions/dist/permission.logic';
 
 @Injectable()
 export class RpcAuthEntityCreateOwnershipInterceptor
   implements NestInterceptor
 {
   private authUtils = new RpcAuthUtils();
-  private permissionServiceClient: PermissionServiceClient;
 
-  constructor(private clientService: ClientService) {
-    this.permissionServiceClient =
-      this.clientService.getServiceInternalClient<PermissionServiceClient>(
-        PermissionServiceDefinition,
-      );
-  }
+  constructor(private permissions: PermissionLogic) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<any> {
     const { jwt, decoded, external, permitted, entity } =
@@ -82,16 +72,13 @@ export class RpcAuthEntityCreateOwnershipInterceptor
           await Promise.all(
             permitted.map(async (p) => {
               const { permittedEntityId, permittedEntity } = p;
-              await this.permissionServiceClient.createOne(
-                {
-                  permittedEntityId,
-                  permittedEntity,
-                  entity,
-                  entityId: id,
-                  action: '*',
-                },
-                { metadata },
-              );
+              await this.permissions.createOne({
+                permittedEntityId,
+                permittedEntity,
+                entity,
+                entityId: id,
+                action: '*',
+              });
             }),
           );
           return result;
