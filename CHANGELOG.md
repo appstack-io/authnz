@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.5 - 2023-12-18
+#### Bug Fixes
+- assert readable breach - (58551d5) - orgal
+#### Miscellaneous Chores
+- bump version to 0.1.4 - (fef4550) - GitHub Action
+- - -
+
 ## 0.1.4 - 2023-12-15
 #### Bug Fixes
 - providers and exports - (6d4af54) - orgal
