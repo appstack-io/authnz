@@ -52,12 +52,15 @@ export class RpcAuthEntityAssertReadableInterceptor implements NestInterceptor {
               readableAs.push({});
             }
             const { entity: asEntity, entityId: asEntityId } = readableAs[0];
-            await this.permissions.validateOne({
+            const validation = await this.permissions.validateOne({
               permitted,
               entity: asEntity || entity,
               entityId: asEntityId || id,
               action: 'read',
             });
+            if (!validation?.validated) {
+              throw new Error();
+            }
           })(),
         ).pipe(
           map(() => result),
